@@ -1,6 +1,7 @@
 import { SIGN_UP_USER } from '@/graphql/mutations'
 import useZustandStore from '@/hooks/useZustandStore'
 import { useMutation } from '@apollo/client'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -46,6 +47,9 @@ export default function Register() {
 
   return (
     <>
+      <Head>
+        <title>Register</title>
+      </Head>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">

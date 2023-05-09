@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const { data, loading, error } = useQuery(GET_USER, {
     fetchPolicy: 'cache-and-network',
-    skip: router.pathname === '/login'
+    skip: ['/register', '/login'].includes(router.pathname)
   })
   const { setUser } = useZustandStore()
 
