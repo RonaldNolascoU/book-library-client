@@ -52,9 +52,13 @@ export default function Homepage() {
     user: { books = [] }
   } = useZustandStore()
 
-  const { data } = useQuery(GET_USER, {
+  const router = useRouter()
+
+  const { data, error } = useQuery(GET_USER, {
     fetchPolicy: 'cache-and-network'
   })
+
+  if (error) router.push('/login')
 
   const [tab, setTab] = useState<string>('ALL')
   const [sort, setSort] = useState<string>('title')

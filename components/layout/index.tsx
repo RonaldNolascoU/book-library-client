@@ -9,7 +9,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
   const { data, loading, error } = useQuery(GET_USER, {
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: 'cache-and-network',
+    skip: router.pathname === '/login'
   })
   const { setUser } = useZustandStore()
 
@@ -19,6 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       console.log({ error })
       router.push('/login')
       toast.error('You are not logged in')
+      return
     }
 
     if (router.pathname === '/login') return

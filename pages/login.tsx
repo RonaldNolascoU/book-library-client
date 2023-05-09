@@ -35,6 +35,7 @@ export default function Login() {
         toast.success('User logged in successfully')
         setUser(user)
         setAccessToken(access_token)
+        localStorage.setItem('access_token', access_token)
         router.push('/')
       }
     } catch (err: any) {

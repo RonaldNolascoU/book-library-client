@@ -3,6 +3,7 @@ import useZustandStore from '@/hooks/useZustandStore'
 import { useMutation } from '@apollo/client'
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
+import { toast } from 'sonner'
 
 export default function LogoutButton() {
   const router = useRouter()
@@ -12,14 +13,20 @@ export default function LogoutButton() {
   const { setAccessToken, setUser, user } = useZustandStore()
 
   const logout = async () => {
-    await logoutUser()
+    try {
+      await logoutUser()
 
-    // Clear state
-    setAccessToken('')
-    setUser({ name: '', email: '' })
-
-    // Redirect to login page
-    router.push('/login')
+      // Clear state
+      setAccessToken('')
+      setUser({ name: '', email: '' })
+      localStorage.removeItem('access_token')
+    } catch (error: any) {
+      console.error('Error logging out:', error)
+      toast.error(error.message)
+    } finally {
+      // Redirect to login page
+      router.push('/login')
+    }
   }
 
   return (
