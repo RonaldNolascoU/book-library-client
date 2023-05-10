@@ -1,0 +1,44 @@
+{
+    "login": {
+        "login": "Iniciar sesión",
+        "sign-in": "Inicia sesión con tu cuenta",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "not-member": "¿No eres miembro?",
+        "register": "Regístrate",
+        "login-success": "¡Bienvenido!"
+    },
+    "register": {
+        "register-success": "¡Registro exitoso!",
+        "register": "Regístrate",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "name": "Nombre",
+        "sign-up": "Regístrate",
+        "login": "Iniciar sesión",
+        "already-member": "¿Ya eres miembro?"
+    },
+    "global": {
+        "library": "Biblioteca",
+        "sort-by": "Ordenar por",
+        "title": "Título",
+        "date": "Fecha",
+        "search": "Buscar",
+        "search-placeholder": "Buscar...",
+        "activity": "Actividad",
+        "newBook": "Nuevo libro",
+        "wantToRead": "Quiero leer",
+        "reading": "Leyendo",
+        "read": "Leído",
+        "all": "Todos",
+        "bookshelves": "Estanterías",
+        "logout": "Cerrar sesión",
+        "feed": "Actividad",
+        "finished": "terminó de leer",
+        "created-by": "Creado por",
+        "edit": "Editar",
+        "finish": "Terminar",
+        "details": "Detalles",
+        "created-on": "Creado el"
+    }
+}

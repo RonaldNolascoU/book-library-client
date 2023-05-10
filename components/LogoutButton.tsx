@@ -2,15 +2,18 @@ import { LOGOUT } from '@/graphql/mutations'
 import useZustandStore from '@/hooks/useZustandStore'
 import { useMutation } from '@apollo/client'
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/router'
 import { toast } from 'sonner'
 
 export default function LogoutButton() {
   const router = useRouter()
 
-  const [logoutUser, { data, loading, error }] = useMutation(LOGOUT)
+  const [logoutUser] = useMutation(LOGOUT)
 
   const { setAccessToken, setUser, user } = useZustandStore()
+
+  const t = useTranslations('global')
 
   const logout = async () => {
     try {
@@ -38,7 +41,7 @@ export default function LogoutButton() {
       <div aria-hidden="true" className="flex items-center">
         (
         <ArrowLeftOnRectangleIcon className="w-4 h-4 mr-2" />
-        Logout )
+        {t('logout')} )
       </div>
     </a>
   )

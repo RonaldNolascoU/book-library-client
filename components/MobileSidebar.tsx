@@ -2,9 +2,11 @@ import { bookshelves, classNames, navigation } from '@/lib/utils'
 import LogoutButton from './LogoutButton'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 export default function MobileSidebar() {
   const router = useRouter()
+  const t = useTranslations('global')
 
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
@@ -34,7 +36,7 @@ export default function MobileSidebar() {
                       className="h-6 w-6 shrink-0"
                       aria-hidden="true"
                     />
-                    {item.name}
+                    {t(item.i18n)}
                   </Link>
                 </li>
               ))}
@@ -42,7 +44,7 @@ export default function MobileSidebar() {
           </li>
           <li>
             <div className="text-xs font-semibold leading-6 text-gray-400">
-              Bookshelves
+              {t('bookshelves')}
             </div>
             <ul role="list" className="-mx-2 mt-2 space-y-1">
               {bookshelves.map((team) => (
@@ -59,7 +61,7 @@ export default function MobileSidebar() {
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
                       {team.initial}
                     </span>
-                    <span className="truncate">{team.name}</span>
+                    <span className="truncate">{t(team.i18n)}</span>
                   </a>
                 </li>
               ))}

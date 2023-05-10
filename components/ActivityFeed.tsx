@@ -1,12 +1,15 @@
 import { BOOK_FINISHED_SUBSCRIPTION } from '@/graphql/mutations'
 import useZustandStore from '@/hooks/useZustandStore'
 import { useSubscription } from '@apollo/client'
+import { useTranslations } from 'next-intl'
 import { useEffect, useMemo } from 'react'
 
 export default function ActivityFeed({ styleClasses = {} }) {
   const { data, loading, error } = useSubscription(BOOK_FINISHED_SUBSCRIPTION)
 
   const { feed = [], setFeed } = useZustandStore()
+
+  const t = useTranslations('global')
 
   useEffect(() => {
     if (!data) return
@@ -21,7 +24,7 @@ export default function ActivityFeed({ styleClasses = {} }) {
       id,
       image: coverImage,
       user: { name },
-      title: `${name} finished reading ${title}`
+      title: `${name} ${t('finished')} ${title}`
     }
 
     if (feed.some((item) => item.id === id)) return
@@ -36,7 +39,7 @@ export default function ActivityFeed({ styleClasses = {} }) {
     >
       <header className="flex items-center justify-between border-b border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
         <h2 className="text-base font-semibold leading-7 text-white">
-          Activity feed
+          {t('feed')}
         </h2>
       </header>
       <ul role="list" className="divide-y divide-white/5">

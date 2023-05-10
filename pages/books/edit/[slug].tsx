@@ -9,6 +9,7 @@ import SearchBar from '@/components/SearchBar'
 import useZustandStore from '@/hooks/useZustandStore'
 import { ADD_BOOK, UPDATE_BOOK } from '@/graphql/mutations'
 import { GET_BOOK } from '@/graphql/queries'
+import { GetStaticPropsContext } from 'next'
 
 const BookEdit: React.FC = () => {
   const router = useRouter()
@@ -235,3 +236,22 @@ const BookEdit: React.FC = () => {
 }
 
 export default BookEdit
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: (await import(`../../../messages/${locale}.json`)).default
+    }
+  }
+}
+
+export const getStaticPaths = ({ locales }: any) => {
+  return {
+    paths: [
+      // if no `locale` is provided only the defaultLocale will be generated
+      { params: { slug: 'post-1' }, locale: 'en' },
+      { params: { slug: 'post-1' }, locale: 'es' }
+    ],
+    fallback: true
+  }
+}

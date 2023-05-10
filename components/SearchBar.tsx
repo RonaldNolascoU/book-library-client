@@ -1,4 +1,5 @@
 import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { useTranslations } from 'next-intl'
 
 export default function SearchBar({
   setSidebarOpen,
@@ -9,6 +10,8 @@ export default function SearchBar({
   onSearch?: (search: string) => void
   hideSearchBar?: boolean
 }) {
+  const t = useTranslations('global')
+
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-gray-900 px-4 shadow-sm sm:px-6 lg:px-8">
       <button
@@ -24,7 +27,7 @@ export default function SearchBar({
         <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <form className="flex flex-1" action="#" method="GET">
             <label htmlFor="search-field" className="sr-only">
-              Search
+              {t('search')}
             </label>
             <div className="relative w-full">
               <MagnifyingGlassIcon
@@ -34,7 +37,7 @@ export default function SearchBar({
               <input
                 id="search-field"
                 className="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-sm"
-                placeholder="Search..."
+                placeholder={t('search-placeholder')}
                 type="search"
                 name="search"
                 onKeyUp={(e) => {

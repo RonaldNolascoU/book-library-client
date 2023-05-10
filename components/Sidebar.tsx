@@ -6,11 +6,16 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { COLLECTIONS } from '@/constants'
+import { useTranslations } from 'next-intl'
 
 export default function Sidebar() {
   const router = useRouter()
 
   const { user: { books = [] } = {} } = useZustandStore()
+
+  const t = useTranslations('global')
+
+  const { locale } = useRouter()
 
   const { WANT_TO_READ, READING, READ } = COLLECTIONS
 
@@ -27,6 +32,13 @@ export default function Sidebar() {
       READ: read.length
     }
   }, [books])
+
+  const changeLanguage = () => {
+    router.push(router.asPath, router.asPath, {
+      locale: locale === 'en' ? 'es' : 'en'
+    })
+  }
+
   return (
     <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
       {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -57,7 +69,7 @@ export default function Sidebar() {
                         className="h-6 w-6 shrink-0"
                         aria-hidden="true"
                       />
-                      {item.name}
+                      {t(item.i18n)}
                     </Link>
                   </li>
                 ))}
@@ -65,7 +77,7 @@ export default function Sidebar() {
             </li>
             <li>
               <div className="text-xs font-semibold leading-6 text-gray-400">
-                Bookshelves
+                {t('bookshelves')}
               </div>
               <ul role="list" className="-mx-2 mt-2 space-y-1">
                 {bookshelves.map((team) => (
@@ -82,16 +94,26 @@ export default function Sidebar() {
                       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
                         {getNumberOfBooks[team.key] || 0}
                       </span>
-                      <span className="truncate">{team.name}</span>
+                      <span className="truncate">{t(team.i18n)}</span>
                     </a>
                   </li>
                 ))}
               </ul>
             </li>
 
-            <li className="-mx-6 mt-auto">
-              <LogoutButton />
-            </li>
+            <div className="-mx-6 mt-auto">
+              <a
+                onClick={() => changeLanguage()}
+                className={classNames(
+                  'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-400 px-6 cursor-pointer'
+                )}
+              >
+                {locale === 'en' ? 'English' : 'Español'}
+              </a>
+              <li>
+                <LogoutButton />
+              </li>
+            </div>
           </ul>
         </nav>
       </div>

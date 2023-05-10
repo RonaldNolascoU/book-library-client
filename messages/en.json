@@ -1,0 +1,44 @@
+{
+    "login": {
+        "login": "Login",
+        "sign-in": "Sign in to your account",
+        "email": "Email address",
+        "password": "Password",
+        "not-member": "Not a member?",
+        "register": "Register",
+        "login-success": "User logged in successfully"
+    },
+    "register": {
+        "register-success": "User created successfully",
+        "register": "Register",
+        "email": "Email address",
+        "password": "Password",
+        "name": "Name",
+        "sign-up": "Sign up",
+        "login": "Login",
+        "already-member": "Already a member?"
+    },
+    "global": {
+        "library": "Library",
+        "sort-by": "Sort by",
+        "title": "Title",
+        "date": "Date",
+        "search": "Search",
+        "search-placeholder": "Search...",
+        "activity": "Activity",
+        "newBook": "New book",
+        "wantToRead": "Want to read",
+        "reading": "Reading",
+        "read": "Read",
+        "all": "All",
+        "bookshelves": "Bookshelves",
+        "logout": "Logout",
+        "feed": "Feed",
+        "finished": "finished reading",
+        "created-by": "created by",
+        "edit": "Edit",
+        "finish": "Finish",
+        "details": "Details",
+        "created-on": "Created on"
+    }
+}

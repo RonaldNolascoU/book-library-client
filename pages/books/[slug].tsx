@@ -17,6 +17,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { BOOK_FINISHED_SUBSCRIPTION, FINISH_BOOK } from '@/graphql/mutations'
 import { toast } from 'sonner'
+import { GetStaticPropsContext } from 'next'
+import { useTranslations } from 'next-intl'
 
 export default function BookDetail() {
   const { setSidebarOpen } = useZustandStore()
@@ -47,6 +49,8 @@ export default function BookDetail() {
     }
   }
 
+  const t = useTranslations('global')
+
   return (
     <>
       <Head>
@@ -74,7 +78,7 @@ export default function BookDetail() {
                             {getBook.title}
                           </h1>
                           <p className="mt-2 text-sm text-gray-500">
-                            created by{' '}
+                            {t('created-by')}{' '}
                             <a href="#" className="font-medium text-gray-400">
                               {getBook.author}
                             </a>{' '}
@@ -90,7 +94,7 @@ export default function BookDetail() {
                               className="-ml-0.5 h-5 w-5 text-white"
                               aria-hidden="true"
                             />
-                            Edit
+                            {t('edit')}
                           </Link>
                           <button
                             onClick={() => finishBook()}
@@ -101,13 +105,12 @@ export default function BookDetail() {
                               className="-ml-0.5 h-5 w-5 text-white"
                               aria-hidden="true"
                             />
-                            Finish
+                            {t('finish')}
                           </button>
                         </div>
                       </div>
 
                       <div className="py-3 xl:pb-0 xl:pt-6">
-                        <h2 className="sr-only">Cover Image</h2>
                         <img
                           className="rounded-lg"
                           src={getBook.coverImage}
@@ -118,7 +121,7 @@ export default function BookDetail() {
                   </div>
                 </div>
                 <aside className="hidden xl:block xl:pl-8">
-                  <h2 className="sr-only">Details</h2>
+                  <h2 className="sr-only">{t('details')}</h2>
                   <div className="space-y-5">
                     <div className="flex items-center space-x-2">
                       <CalendarIcon
@@ -126,7 +129,7 @@ export default function BookDetail() {
                         aria-hidden="true"
                       />
                       <span className="text-sm font-medium text-gray-400">
-                        Created on{' '}
+                        {t('created-on')}{' '}
                         <time dateTime="2020-12-02">{getBook.date}</time>
                       </span>
                     </div>
@@ -156,4 +159,23 @@ export default function BookDetail() {
       </div>
     </>
   )
+}
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: (await import(`../../messages/${locale}.json`)).default
+    }
+  }
+}
+
+export const getStaticPaths = ({ locales }: any) => {
+  return {
+    paths: [
+      // if no `locale` is provided only the defaultLocale will be generated
+      { params: { slug: 'post-1' }, locale: 'en' },
+      { params: { slug: 'post-1' }, locale: 'es' }
+    ],
+    fallback: true
+  }
 }

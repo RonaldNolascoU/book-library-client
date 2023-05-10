@@ -15,6 +15,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 import { setContext } from '@apollo/client/link/context'
+import { NextIntlProvider } from 'next-intl'
 
 const uploadLink = createUploadLink({
   uri: 'http://localhost:4000/graphql'
@@ -58,10 +59,12 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <Toaster richColors />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <NextIntlProvider messages={pageProps.messages}>
+        <Toaster richColors />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </NextIntlProvider>
     </ApolloProvider>
   )
 }

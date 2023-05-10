@@ -29,6 +29,8 @@ import Navbar from '@/components/Navbar'
 import Head from 'next/head'
 import { GET_USER } from '@/graphql/queries'
 import ActivityFeed from '@/components/ActivityFeed'
+import { GetStaticPropsContext } from 'next'
+import { useTranslations } from 'next-intl'
 
 const activityItems = [
   {
@@ -53,6 +55,8 @@ export default function Homepage() {
   } = useZustandStore()
 
   const router = useRouter()
+
+  const t = useTranslations('global')
 
   const { data, error } = useQuery(GET_USER, {
     fetchPolicy: 'cache-and-network'
@@ -113,7 +117,7 @@ export default function Homepage() {
   return (
     <>
       <Head>
-        <title>Library</title>
+        <title>{t('library')}</title>
       </Head>
       <div>
         <Navbar />
@@ -137,7 +141,7 @@ export default function Homepage() {
                         href={item.href}
                         className={item.key === tab ? 'text-indigo-400' : ''}
                       >
-                        {item.name}
+                        {t(item.i18n)}
                       </a>
                     </li>
                   ))}
@@ -147,7 +151,7 @@ export default function Homepage() {
               {/* Sort dropdown */}
               <Menu as="div" className="relative">
                 <Menu.Button className="flex items-center gap-x-1 text-sm font-medium leading-6 text-white">
-                  Sort by
+                  {t('sort-by')}
                   <ChevronUpDownIcon
                     className="h-5 w-5 text-gray-500"
                     aria-hidden="true"
@@ -172,7 +176,7 @@ export default function Homepage() {
                             'block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer'
                           )}
                         >
-                          Title
+                          {t('title')}
                         </a>
                       )}
                     </Menu.Item>
@@ -185,7 +189,7 @@ export default function Homepage() {
                             'block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer'
                           )}
                         >
-                          Date
+                          {t('date')}
                         </a>
                       )}
                     </Menu.Item>
@@ -209,14 +213,6 @@ export default function Homepage() {
                         alt=""
                         className="pointer-events-none object-cover group-hover:opacity-75"
                       />
-                      <button
-                        type="button"
-                        className="absolute inset-0 focus:outline-none"
-                      >
-                        <span className="sr-only">
-                          View details for {file.title}
-                        </span>
-                      </button>
                     </div>
                     <p className="truncate text-lg leading-5 text-gray-400 mt-2">
                       {file.title}
@@ -243,4 +239,12 @@ export default function Homepage() {
       </div>
     </>
   )
+}
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: (await import(`../messages/${locale}.json`)).default
+    }
+  }
 }
